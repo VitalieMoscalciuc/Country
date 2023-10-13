@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="country" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="51bf2bbf-beff-4520-aa2c-8cd35b86d867">
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="name" class="java.lang.String"/>
+	<field name="countryCode" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="79" backcolor="#B09999" uuid="708ccd77-f20f-4fca-89c8-578918861e4c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="33"/>
+				</textElement>
+				<text><![CDATA[Country Report]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="0" y="0" width="100" height="30" uuid="07c27b44-6e97-46c9-8ba6-bbb3cec68bbc"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH:mm">
+				<reportElement x="0" y="30" width="100" height="30" uuid="e11593ef-e6e5-4755-b988-34ecbd6dd93c"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="30" y="20" width="150" height="30" uuid="eecfb66d-98ed-443d-b81e-5eebe1fe7196"/>
+				<text><![CDATA[Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="320" y="20" width="150" height="30" uuid="362c7612-a520-4fb6-89f5-17241726b128"/>
+				<text><![CDATA[Country code]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="30" y="40" width="150" height="40" uuid="19c6e43e-150a-4714-b12b-b54a42a255d4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3799e512-5c0a-49c0-80fa-ef38612ab707"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="320" y="40" width="150" height="40" uuid="d4bc868b-9998-4889-95f0-c7e11ddd710b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6c4bfea5-b3b6-4527-9db6-c2fddaeb0cb7"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{countryCode}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

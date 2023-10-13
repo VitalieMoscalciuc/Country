@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Cities" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8d51e059-5dd7-4797-a23c-906cf3bb9e5d">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="name" class="java.lang.String"/>
+	<field name="peopleCount" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="107" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="107" backcolor="#C2AFAE" uuid="e9698ce6-fe96-4ced-b1fe-4d7b4ea47fa6"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="107" uuid="a8618b3c-f134-4af8-82d1-0cddca9b4ddd">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="26"/>
+				</textElement>
+				<text><![CDATA[City Report]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="10" y="10" width="100" height="30" uuid="3e43d941-3d97-4a02-b270-242f2b37feb7"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="75" splitType="Stretch">
+			<staticText>
+				<reportElement x="-10" y="15" width="230" height="30" uuid="08915991-bd31-4e4f-aa09-3141e05e5274"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[Numele]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="22" width="254" height="30" uuid="ffee9e6b-3ccb-44cc-8e3c-34fdbd7ed318"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[Numar de locuitor]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="10" y="15" width="230" height="30" uuid="1d343655-f6d0-4a04-9274-91ae3b33a197"/>
+				<textElement>
+					<font size="22"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="350" y="15" width="180" height="30" uuid="f9fb705c-773a-4044-b0e7-4d80588d925a"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{peopleCount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
