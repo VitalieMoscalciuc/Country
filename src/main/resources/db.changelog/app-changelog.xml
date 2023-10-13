@@ -1,0 +1,40 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog
+    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+<include file="db.changelog/scripts/create_city_table.sql"/>
+<include file="db.changelog/scripts/create_country_table.sql"/>
+<include file="db.changelog/scripts/alter_table_country.sql"/>
+    <changeSet id="seedDataForCountry" author="vmoscalciuc">
+        <sql>
+            INSERT INTO "country" (name, country_code)
+            VALUES ('USA', '+1');
+
+            INSERT INTO "country" (name, country_code)
+            VALUES ('Canada', '+2');
+
+            INSERT INTO "country" (name, country_code)
+            VALUES ('Moldova', '+373');
+
+        </sql>
+    </changeSet>
+
+    <changeSet id="seedDataForCity" author="vmoscalciuc">
+        <sql>
+            INSERT INTO "city" (name,people_count )
+            VALUES ('Balti', 100000);
+
+            INSERT INTO "city" (name,people_count )
+            VALUES ('Chisinau', 500000);
+
+            INSERT INTO "city" (name,people_count )
+            VALUES ('Cahul', 30000);
+
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
