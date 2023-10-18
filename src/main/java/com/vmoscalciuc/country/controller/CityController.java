@@ -18,6 +18,7 @@ public class CityController extends BaseController<City, Long, CityDtoRequest, C
     public CityController(GenericService<City, Long, CityDtoRequest, CityDtoResponse> service, ModelMapper modelMapper) {
         super(service, modelMapper);
     }
-
+    //request url example
+    //http://localhost:8080/api/city/pdf/filter?search=peopleCount<35000&sortField=peopleCount&ascending=true
 
 }

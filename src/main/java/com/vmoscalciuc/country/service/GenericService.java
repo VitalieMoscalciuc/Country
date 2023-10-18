@@ -11,7 +11,7 @@ public interface GenericService<E, I, DtoRequest, DtoResponse> {
 
     void add(DtoRequest dto);
 
-    Iterable<E> getAllByPredicate(String search, PredicateBuilder<E> builder);
+    Iterable<E> getAllByPredicate(String search, PredicateBuilder<E> builder, String sortField, boolean ascending);
 
     List<DtoResponse> getAll();
 
@@ -19,7 +19,7 @@ public interface GenericService<E, I, DtoRequest, DtoResponse> {
 
     DtoResponse update(I id, DtoRequest dto);
 
-    byte[] generatePdfReport(String search) throws JRException, IOException;
+    byte[] generatePdfReport(String search,String sortField, boolean ascending) throws JRException, IOException;
 
     void delete(I id);
 }

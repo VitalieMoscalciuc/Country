@@ -32,7 +32,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
 import java.util.HashMap;
@@ -62,7 +61,7 @@ public abstract class GenericServiceImpl<E, I, DtoRequest, DtoResponse, R extend
     }
 
     @Override
-    public Iterable<E> getAllByPredicate(String search, PredicateBuilder<E> builder) {
+    public Iterable<E> getAllByPredicate(String search, PredicateBuilder<E> builder, String sortField, boolean ascending) {
         if (search != null) {
             Pattern pattern = Pattern.compile("(\\w+?)(:|<|>)(\\w+?),");
             Matcher matcher = pattern.matcher(search + ",");
@@ -70,8 +69,14 @@ public abstract class GenericServiceImpl<E, I, DtoRequest, DtoResponse, R extend
                 builder.with(matcher.group(1), matcher.group(2), matcher.group(3));
             }
         }
-        BooleanExpression exp = builder.build();
-        return repository.findAll(exp);
+        if(sortField==null){
+            BooleanExpression exp = builder.build();
+            return repository.findAll(exp);
+        }else{
+            BooleanExpression exp = builder.build();
+            Sort sort = ascending ? Sort.by(Sort.Order.asc(sortField)) : Sort.by(Sort.Order.desc(sortField));
+            return repository.findAll(exp, sort);
+        }
     }
 
     @Override
@@ -93,12 +98,13 @@ public abstract class GenericServiceImpl<E, I, DtoRequest, DtoResponse, R extend
     }
 
     @Override
-    public byte[] generatePdfReport(String search) throws JRException, IOException {
+    public byte[] generatePdfReport(String search,String sortField, boolean ascending) throws JRException, IOException {
         PathBuilder<E> entityPath = new PathBuilder<>(entityClass(), entityClass().getSimpleName().toLowerCase());
         PredicateBuilder<E> builder = new PredicateBuilder<>(entityPath);
 
         JRBeanCollectionDataSource beanCollectionDataSource =
-                new JRBeanCollectionDataSource((Collection<?>) getAllByPredicate(search, builder), false);
+                new JRBeanCollectionDataSource((Collection<?>) getAllByPredicate(search, builder,sortField,ascending),
+                        false);
 
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("total", "7000");
