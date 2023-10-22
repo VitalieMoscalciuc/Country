@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CountryService extends GenericServiceImpl<Country, Long, CountryDtoRequest, CountryDtoResponse, CountryRepository> {
+
     @Autowired
     public CountryService(ModelMapper modelMapper, CountryRepository repository) {
         super(modelMapper, repository);

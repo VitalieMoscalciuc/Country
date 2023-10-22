@@ -22,4 +22,5 @@ public interface GenericService<E, I, DtoRequest, DtoResponse> {
     byte[] generatePdfReport(String search,String sortField, boolean ascending) throws JRException, IOException;
 
     void delete(I id);
+
 }
