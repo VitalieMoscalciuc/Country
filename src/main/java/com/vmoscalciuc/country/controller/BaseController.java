@@ -1,5 +1,6 @@
 package com.vmoscalciuc.country.controller;
 
+import com.vmoscalciuc.country.util.ReflectionUtils;
 import com.vmoscalciuc.country.service.GenericService;
 import lombok.RequiredArgsConstructor;
 import net.sf.jasperreports.engine.JRException;
@@ -19,7 +20,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 @RestController
@@ -28,6 +28,8 @@ public abstract class BaseController<E, I, DtoRequest, DtoResponse> {
 
     private final GenericService<E, I, DtoRequest, DtoResponse> service;
     private final ModelMapper modelMapper;
+    private final ReflectionUtils<E, DtoRequest, DtoResponse> reflectionUtils = new ReflectionUtils<>();
+    Class<?> clazz = this.getClass();
 
     @GetMapping()
     @ResponseStatus(code = HttpStatus.OK)
@@ -56,7 +58,8 @@ public abstract class BaseController<E, I, DtoRequest, DtoResponse> {
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition",
-                "inline; filename=" + entityClass().getSimpleName().toLowerCase() + "report.pdf");
+                "inline; filename="
+                        + reflectionUtils.getEntityClass(clazz).getSimpleName().toLowerCase() + "report.pdf");
 
         return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(data);
     }
@@ -64,7 +67,7 @@ public abstract class BaseController<E, I, DtoRequest, DtoResponse> {
     @GetMapping("/{id}")
     @ResponseStatus(code = HttpStatus.FOUND)
     public DtoResponse getEntity(@PathVariable I id) {
-        return modelMapper.map(service.getById(id), dtoResponseClass());
+        return modelMapper.map(service.getById(id), reflectionUtils.getDtoResponseClass(clazz));
     }
 
     @PostMapping()
@@ -76,7 +79,7 @@ public abstract class BaseController<E, I, DtoRequest, DtoResponse> {
     @PutMapping("/{id}")
     @ResponseStatus(code = HttpStatus.ACCEPTED)
     public DtoResponse updateEntity(@PathVariable I id, @RequestBody DtoRequest dto) {
-        return modelMapper.map(service.update(id, dto), dtoResponseClass());
+        return modelMapper.map(service.update(id, dto),reflectionUtils.getDtoResponseClass(clazz));
     }
 
     @DeleteMapping("/{id}")
@@ -85,19 +88,5 @@ public abstract class BaseController<E, I, DtoRequest, DtoResponse> {
         service.delete(id);
     }
 
-    protected Class<DtoRequest> dtoRequestClass() {
-        return (Class<DtoRequest>) ((ParameterizedType) getClass()
-                .getGenericSuperclass()).getActualTypeArguments()[2];
-    }
-
-    protected Class<DtoResponse> dtoResponseClass() {
-        return (Class<DtoResponse>) ((ParameterizedType) getClass()
-                .getGenericSuperclass()).getActualTypeArguments()[3];
-    }
-
-    protected Class<E> entityClass() {
-        return (Class<E>) ((ParameterizedType) getClass()
-                .getGenericSuperclass()).getActualTypeArguments()[0];
-    }
 }
 
